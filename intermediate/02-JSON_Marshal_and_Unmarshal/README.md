@@ -1,5 +1,8 @@
 ***JSON marshal & unmarshal***
 
+<img width="866" alt="Screenshot 2567-10-18 at 16 11 16" src="https://github.com/user-attachments/assets/9c5cc6c8-f7d3-4612-849b-1333b67d40ea">
+
+
 **1. Importing the Package**
 
 First, you need to import the encoding/json package:
