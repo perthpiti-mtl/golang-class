@@ -1,13 +1,13 @@
-***GO Module***
+# GO Module
 
-**Introduction to Go Modules**
+## Introduction to Go Modules
 
 Go Modules are the standard way to manage dependencies in the Go programming language since Go version 1.11. They
 provide a built-in mechanism for versioning and package distribution, replacing the older GOPATH approach. Go Modules
 enable you to define project-specific dependency requirements, making it easier to build reproducible and reliable
 applications.
 
-**Why Use Go Modules?**
+## Why Use Go Modules?
 
 Before Go Modules, dependency management in Go was handled via the GOPATH environment variable, which had several
 limitations:
@@ -31,7 +31,7 @@ Key Concepts
 
 ----------------------------------------------
 
-**Getting Started with Go Modules**
+## Getting Started with Go Modules
 
 1. Initializing a Module
 
@@ -102,12 +102,12 @@ Common Go Module Commands
 - go get [module]: Add or update a module dependency.
 
 ----------------------------------------------
-**Example**
+## Example
 
 Step 1: Initialize the Module
 
 ```bash
-go mod init github.com/yourusername/myproject
+go mod init github.com/golang-class/go-mod
 ```
 
 Step 2: Write Some Code

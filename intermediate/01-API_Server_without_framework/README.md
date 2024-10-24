@@ -1,6 +1,6 @@
-***API Server without framework***
+# API Server without framework
 
-**1. Creating Handler Functions**
+### 1. Creating Handler Functions
 
 In Go, an HTTP handler is any object that implements the http.Handler interface, which requires a ServeHTTP method, or you can use http.HandlerFunc, which is a type that adapts a function to the http.Handler interface.
 
@@ -17,7 +17,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-**2. Routing Requests**
+### 2. Routing Requests
 
 You can route incoming HTTP requests to handler functions using http.HandleFunc or by creating a custom ServeMux.
 
@@ -37,7 +37,7 @@ func main() {
 }
 ```
 
-**3. Handling HTTP Methods**
+### 3. Handling HTTP Methods
 
 Within your handler function, you can check the HTTP method and respond accordingly.
 
@@ -54,7 +54,7 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-**4. Parsing Request Data**
+### 4. Parsing Request Data
 
 *Query Parameters*
 ```go
@@ -99,7 +99,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-**5. Setting Response Headers and Status Codes**
+### 5. Setting Response Headers and Status Codes
 ```go
 func customResponseHandler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
@@ -108,7 +108,7 @@ func customResponseHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-**6. Starting the Server**
+### 6. Starting the Server
 
 Start the server by calling http.ListenAndServe:
 ```go

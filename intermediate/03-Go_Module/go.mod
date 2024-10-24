@@ -1,4 +1,4 @@
-module github.com/yourusername/myproject
+module github.com/golang-class/go-mod
 
 go 1.23.2
 
