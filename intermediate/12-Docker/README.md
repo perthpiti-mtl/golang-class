@@ -104,6 +104,16 @@ docker run -d -p 8080:8080 --name gin-api-container gin-api:latest
 - -p 8080:8080 maps the host port 8080 to the container port 8080.
 - --name gin-api-container names the container.
 
+## Run with ENV Variables
+```bash
+docker run -d -p 8080:8080 --name gin-api-container -e GIN_MODE=release gin-api:latest
+```
+
+## Run with .ENV File
+```bash
+docker run -d -p 8080:8080 --name gin-api-container --env-file .env gin-api:latest
+```
+
 ### Test the Application Inside the Container
 ```bash
 curl http://localhost:8080/ping
