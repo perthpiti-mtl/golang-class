@@ -3,7 +3,7 @@ package connector
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-class/http-client-api/model"
+	"github.com/golang-class/api/model"
 	"log"
 	"net/http"
 	"strconv"

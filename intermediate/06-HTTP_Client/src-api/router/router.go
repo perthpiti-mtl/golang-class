@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/golang-class/http-client-api/handler"
+	"github.com/golang-class/api/handler"
 )
 
 func Router(handler handler.Handler) *gin.Engine {

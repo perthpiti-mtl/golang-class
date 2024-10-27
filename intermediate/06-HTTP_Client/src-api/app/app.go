@@ -3,8 +3,8 @@ package app
 
 import (
 	"fmt"
-	"github.com/golang-class/http-client-api/handler"
-	"github.com/golang-class/http-client-api/router"
+	"github.com/golang-class/api/handler"
+	"github.com/golang-class/api/router"
 )
 
 type App struct {

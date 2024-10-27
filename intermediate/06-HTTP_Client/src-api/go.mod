@@ -1,4 +1,4 @@
-module github.com/golang-class/http-client-api
+module github.com/golang-class/api
 
 go 1.23.2
 

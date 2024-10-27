@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/golang-class/http-client-api/service"
+	"github.com/golang-class/api/service"
 	"net/http"
 )
 

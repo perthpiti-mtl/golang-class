@@ -4,11 +4,10 @@
 //go:build !wireinject
 // +build !wireinject
 
-package main
+package di
 
 import (
 	"github.com/golang-class/api/app"
-	"github.com/golang-class/api/config"
 	"github.com/golang-class/api/connector"
 	"github.com/golang-class/api/database"
 	"github.com/golang-class/api/handler"
@@ -19,13 +18,12 @@ import (
 // Injectors from provider.go:
 
 func InitializeApp() *app.App {
-	configConfig := config.NewConfig()
-	catImageAPIClient := connector.NewRealHTTPClient(configConfig)
+	catImageAPIClient := connector.NewRealHTTPClient()
 	catService := service.NewRealCatService(catImageAPIClient)
-	pool := database.NewDatabasePool(configConfig)
+	pool := database.NewDatabasePool()
 	favoriteRepository := repository.NewRealFavoriteRepository(pool)
 	favoriteService := service.NewRealFavoriteService(favoriteRepository)
 	handlerHandler := handler.NewHandler(catService, favoriteService)
-	appApp := app.NewApp(handlerHandler, configConfig)
+	appApp := app.NewApp(handlerHandler)
 	return appApp
 }

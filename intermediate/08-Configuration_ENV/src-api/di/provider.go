@@ -2,10 +2,11 @@
 //go:build wireinject
 // +build wireinject
 
-package main
+package di
 
 import (
 	"github.com/golang-class/api/app"
+	"github.com/golang-class/api/config"
 	"github.com/golang-class/api/connector"
 	"github.com/golang-class/api/database"
 	"github.com/golang-class/api/handler"
@@ -16,6 +17,7 @@ import (
 
 func InitializeApp() *app.App {
 	wire.Build(
+		config.NewConfig,
 		database.NewDatabasePool,
 		repository.NewRealFavoriteRepository,
 		service.NewRealCatService,

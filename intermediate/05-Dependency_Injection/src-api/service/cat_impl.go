@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/golang-class/di-api/connector"
-	"github.com/golang-class/di-api/model"
+	"github.com/golang-class/api/connector"
+	"github.com/golang-class/api/model"
 )
 
 type RealCatService struct {

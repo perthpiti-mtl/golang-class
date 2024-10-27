@@ -4,7 +4,7 @@
 //go:build !wireinject
 // +build !wireinject
 
-package main
+package di
 
 import (
 	"github.com/golang-class/di-wire/app"

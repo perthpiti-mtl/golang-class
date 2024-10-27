@@ -2,14 +2,14 @@
 //go:build wireinject
 // +build wireinject
 
-package main
+package di
 
 import (
-	"github.com/golang-class/http-client-api/app"
-	"github.com/golang-class/http-client-api/connector"
-	"github.com/golang-class/http-client-api/handler"
-	"github.com/golang-class/http-client-api/repository"
-	"github.com/golang-class/http-client-api/service"
+	"github.com/golang-class/api/app"
+	"github.com/golang-class/api/connector"
+	"github.com/golang-class/api/handler"
+	"github.com/golang-class/api/repository"
+	"github.com/golang-class/api/service"
 	"github.com/google/wire"
 )
 

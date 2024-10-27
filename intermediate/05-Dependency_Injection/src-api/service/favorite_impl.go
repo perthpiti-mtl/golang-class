@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/golang-class/di-api/model"
-	"github.com/golang-class/di-api/repository"
+	"github.com/golang-class/api/model"
+	"github.com/golang-class/api/repository"
 )
 
 type RealFavoriteService struct {

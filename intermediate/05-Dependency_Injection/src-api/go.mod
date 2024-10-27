@@ -1,4 +1,4 @@
-module github.com/golang-class/di-api
+module github.com/golang-class/api
 
 go 1.23.2
 
