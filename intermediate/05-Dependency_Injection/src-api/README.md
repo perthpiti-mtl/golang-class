@@ -16,4 +16,4 @@ GET /favorite
 
 POST /favorite
 
-DELET /favorite
+DELETE /favorite/{id}

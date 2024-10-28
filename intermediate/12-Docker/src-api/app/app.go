@@ -28,15 +28,15 @@ func NewApp(handler *handler.Handler, config *config.Config) *App {
 
 func (a *App) Run() error {
 	server := &http.Server{
-		Addr:    fmt.Sprintf("%s:%d", a.config.Server.Host, a.config.Server.Port),
+		Addr:    fmt.Sprintf(":%d", a.config.Server.Port),
 		Handler: router.Router(a.handler),
 	}
 
 	// Start server in a goroutine
 	go func() {
-		fmt.Printf("Server starting on %s:%d...\n", a.config.Server.Host, a.config.Server.Port)
+		fmt.Printf("Server starting on %d...\n", a.config.Server.Port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("Could not listen on %s:%d: %v\n", a.config.Server.Host, a.config.Server.Port, err)
+			log.Fatalf("Could not listen on %d: %v\n", a.config.Server.Port, err)
 		}
 	}()
 

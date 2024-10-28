@@ -3,11 +3,15 @@ package config
 import (
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
-	"log"
+	log "github.com/sirupsen/logrus"
 )
 
 type ServerConfig struct {
 	Port int `envconfig:"PORT" default:"8080"`
+}
+
+type MovieAPIConfig struct {
+	Url string `envconfig:"URL" default:"https://imdb.iamidiotareyoutoo.com"`
 }
 
 type DatabaseConfig struct {
@@ -21,22 +25,17 @@ type DatabaseConfig struct {
 	MinConnectionIdleMinute int32  `envconfig:"MIN_CONNECTION_IDLE_MINUTE" default:"5"`
 }
 
-type CatAPIConfig struct {
-	Url           string `envconfig:"URL" default:"https://api.thecatapi.com/v1"`
-	TimeoutSecond int    `envconfig:"TIMEOUT" default:"10"`
-}
-
 type Config struct {
 	Server   ServerConfig   `envconfig:"SERVER"`
+	MovieAPI MovieAPIConfig `envconfig:"MOVIE_API"`
 	Database DatabaseConfig `envconfig:"DATABASE"`
-	CatAPI   CatAPIConfig   `envconfig:"CAT_API"`
 }
 
 func NewConfig() *Config {
 	// Load variables from .env into the environment
 	err := godotenv.Load()
 	if err != nil {
-		log.Printf("Warning: .env file not found, using environment variables instead")
+		log.Warnf("Error loading .env file: %v", err)
 	}
 
 	var cfg Config
