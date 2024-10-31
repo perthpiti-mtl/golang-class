@@ -9,7 +9,3 @@ type FavoriteMovie struct {
 	Image     string    `json:"image"`
 	CreatedAt time.Time `json:"created_at"`
 }
-
-type FavoriteMovieAddRequest struct {
-	MovieID string `json:"movie_id"`
-}

@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/golang-class/lab/config"
 	"github.com/golang-class/lab/handler"
 	"github.com/golang-class/lab/router"
 	log "github.com/sirupsen/logrus"
@@ -15,23 +14,22 @@ import (
 )
 
 type App struct {
-	Config  *config.Config
 	Handler *handler.Handler
 }
 
 func (a *App) Run() error {
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", a.Config.Server.Port),
+		Addr:    fmt.Sprintf(":%d", 8080),
 		Handler: router.Router(a.Handler),
 	}
 
 	go func() {
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatalf("Could not listen on %d: %v\n", a.Config.Server.Port)
+			log.Fatalf("Could not listen on %d: %v\n", 8080)
 		}
 	}()
 
-	fmt.Printf("Server starting on %d...\n", a.Config.Server.Port)
+	fmt.Printf("Server starting on %d...\n", 8080)
 
 	// Graceful shutdown
 	quit := make(chan os.Signal, 1)
@@ -51,9 +49,8 @@ func (a *App) Run() error {
 	return nil
 }
 
-func NewApp(config *config.Config, handler *handler.Handler) *App {
+func NewApp(handler *handler.Handler) *App {
 	return &App{
-		Config:  config,
 		Handler: handler,
 	}
 }

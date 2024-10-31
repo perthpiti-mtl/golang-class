@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/golang-class/lab/config"
 	"github.com/golang-class/lab/model"
 	"io"
 	"net/http"
@@ -141,9 +140,9 @@ func (r *RealMovieAPIConnector) GetMovieDetail(ctx context.Context, movieId stri
 	return movie, nil
 }
 
-func NewRealMovieAPI(config *config.Config) MovieAPIConnector {
+func NewRealMovieAPI() MovieAPIConnector {
 	return &RealMovieAPIConnector{
 		client:  &http.Client{},
-		baseURL: config.MovieAPI.Url,
+		baseURL: "https://imdb.iamidiotareyoutoo.com",
 	}
 }

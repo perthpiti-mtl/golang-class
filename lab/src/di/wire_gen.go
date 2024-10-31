@@ -8,7 +8,6 @@ package di
 
 import (
 	"github.com/golang-class/lab/app"
-	"github.com/golang-class/lab/config"
 	"github.com/golang-class/lab/connector"
 	"github.com/golang-class/lab/database"
 	"github.com/golang-class/lab/handler"
@@ -19,13 +18,12 @@ import (
 // Injectors from provider.go:
 
 func InitializeApp() *app.App {
-	configConfig := config.NewConfig()
-	movieAPIConnector := connector.NewRealMovieAPI(configConfig)
+	movieAPIConnector := connector.NewRealMovieAPI()
 	movieService := service.NewRealMovieService(movieAPIConnector)
-	pool := database.NewDatabasePool(configConfig)
+	pool := database.NewDatabasePool()
 	favoriteRepository := repository.NewRealFavoriteRepository(pool)
-	favoriteService := service.NewRealFavoriteService(movieAPIConnector, favoriteRepository)
+	favoriteService := service.NewRealFavoriteService(favoriteRepository)
 	handlerHandler := handler.NewHandler(movieService, favoriteService)
-	appApp := app.NewApp(configConfig, handlerHandler)
+	appApp := app.NewApp(handlerHandler)
 	return appApp
 }
