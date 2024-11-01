@@ -98,6 +98,8 @@ docker run -d \
 - Check if the movie is not added to the database if the movie_id is invalid.
 - Check if the added movie appear in the GET /favorites endpoint.
 
+6. Try to add duplicate favorite movie and check if the service return appropriate error.
+
 ### Implement external config
 
 1. Currently, an external API URL, database credentials, are hardcoded in the code.
@@ -116,5 +118,11 @@ docker run -d \
 3. Try establish database connection to postgres_db container.
 4. Try to add favorite movie using POST /favorites endpoint.
 
-## Homework: 
+## Extra 1:
+### Using docker compose to run both service and database
+
+## Extra 2: 
 ### Implement DELETE /favorites/{movie_id}:
+
+## Extra 3:
+### Implement service unit test using mock
