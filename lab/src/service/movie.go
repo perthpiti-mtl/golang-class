@@ -6,6 +6,6 @@ import (
 )
 
 type MovieService interface {
-	SearchMovie(ctx context.Context, keyword string) ([]model.Movie, error)
+	ListMovie(ctx context.Context) ([]model.Movie, error)
 	GetMovieDetail(ctx context.Context, movieId string) (*model.Movie, error)
 }

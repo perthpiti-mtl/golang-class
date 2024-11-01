@@ -120,7 +120,7 @@ func main() {
 	database := repository.NewRealDatabase()
 	appRunner := app.NewApp(httpClient, database)
 
-	if err := appRunner.Run("https://api.thecatapi.com/v1/images/search"); err != nil {
+	if err := appRunner.Run("https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/cat-api/list"); err != nil {
 		panic(err)
 	}
 }
@@ -213,7 +213,7 @@ package main
 
 func main() {
 	appRunner := InitializeApp()
-	if err := appRunner.Run("https://api.thecatapi.com/v1/images/search"); err != nil {
+	if err := appRunner.Run("https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/cat-api/list"); err != nil {
 		panic(err)
 	}
 }

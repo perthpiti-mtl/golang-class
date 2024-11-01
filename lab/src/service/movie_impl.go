@@ -10,8 +10,8 @@ type RealMovieService struct {
 	MovieAPIConnector connector.MovieAPIConnector
 }
 
-func (r *RealMovieService) SearchMovie(c context.Context, keyword string) ([]model.Movie, error) {
-	movie, err := r.MovieAPIConnector.SearchMovie(c, keyword)
+func (r *RealMovieService) ListMovie(c context.Context) ([]model.Movie, error) {
+	movie, err := r.MovieAPIConnector.ListMovie(c)
 	if err != nil {
 		return nil, err
 	}

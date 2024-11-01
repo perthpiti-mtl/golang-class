@@ -11,10 +11,9 @@ type Handler struct {
 	FavoriteService service.FavoriteService
 }
 
-// SearchMovie handles the search movie endpoint
-func (h *Handler) SearchMovie(c *gin.Context) {
-	searchQuery := c.Query("query")
-	movie, err := h.MovieService.SearchMovie(c, searchQuery)
+// ListMovie handles the search movie endpoint
+func (h *Handler) ListMovie(c *gin.Context) {
+	movie, err := h.MovieService.ListMovie(c)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

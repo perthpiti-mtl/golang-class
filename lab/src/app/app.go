@@ -25,7 +25,7 @@ func (a *App) Run() error {
 
 	go func() {
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatalf("Could not listen on %d: %v\n", 8080)
+			log.Fatalf("Could not listen on %d: %v\n", 8080, err)
 		}
 	}()
 

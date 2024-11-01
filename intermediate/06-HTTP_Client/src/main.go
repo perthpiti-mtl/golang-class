@@ -9,10 +9,8 @@ import (
 )
 
 type CatImage struct {
-	Id     string `json:"id"`
-	Url    string `json:"url"`
-	Width  int    `json:"width"`
-	Height int    `json:"height"`
+	Id  string `json:"id"`
+	Url string `json:"url"`
 }
 
 func main() {
@@ -20,7 +18,7 @@ func main() {
 		Timeout: time.Second * 10,
 	}
 
-	req, err := http.NewRequest("GET", "https://api.thecatapi.com/v1/images/search", nil)
+	req, err := http.NewRequest("GET", "https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/cat-api/list", nil)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -6,6 +6,6 @@ import (
 )
 
 type MovieAPIConnector interface {
-	SearchMovie(c context.Context, keyword string) ([]model.Movie, error)
+	ListMovie(c context.Context) ([]model.Movie, error)
 	GetMovieDetail(c context.Context, movieId string) (*model.Movie, error)
 }

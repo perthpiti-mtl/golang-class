@@ -16,7 +16,7 @@ type RealCatImageAPIClient struct {
 }
 
 func (c *RealCatImageAPIClient) Search(ctx *gin.Context, limit int) ([]model.CatImage, error) {
-	fullUrl := c.baseURL + "/v1/images/search"
+	fullUrl := c.baseURL + "/list"
 	req, err := http.NewRequestWithContext(ctx.Request.Context(), "GET", fullUrl, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -50,6 +50,6 @@ func NewRealHTTPClient() CatImageAPIClient {
 	}
 	return &RealCatImageAPIClient{
 		client:  client,
-		baseURL: "https://api.thecatapi.com",
+		baseURL: "https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/cat-api",
 	}
 }

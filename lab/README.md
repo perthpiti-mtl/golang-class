@@ -12,7 +12,7 @@ and PostgreSQL for storing user favorites.
 
 #### Search Movies:
 
-- **GET /movies/search?query={query}**
+- **GET /movies**
     - Fetches a list of movies matching the search query from the external API.
     - Returns a JSON array of movies with basic information (title, year, ID).
 
@@ -49,7 +49,7 @@ and PostgreSQL for storing user favorites.
     - movie_id (VARCHAR, Primary Key)
     - title (VARCHAR)
     - year (INTEGER)
-    - image (VARCHAR)
+    - rating (FLOAT)
     - created_at (TIMESTAMP)
 
 ----------------

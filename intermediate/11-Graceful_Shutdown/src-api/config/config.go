@@ -23,7 +23,7 @@ type DatabaseConfig struct {
 }
 
 type CatAPIConfig struct {
-	Url           string `envconfig:"URL" default:"https://api.thecatapi.com/v1"`
+	Url           string `envconfig:"URL" default:"https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/cat-api"`
 	TimeoutSecond int    `envconfig:"TIMEOUT" default:"10"`
 }
 

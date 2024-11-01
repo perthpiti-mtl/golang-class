@@ -7,7 +7,6 @@ import (
 	"github.com/golang-class/lab/model"
 	"io"
 	"net/http"
-	"net/url"
 )
 
 type RealMovieAPIConnector struct {
@@ -18,56 +17,36 @@ type RealMovieAPIConnector struct {
 type MovieSearchResponse struct {
 	Ok          bool `json:"ok"`
 	Description []struct {
-		TITLE       string `json:"#TITLE"`
-		YEAR        int    `json:"#YEAR,omitempty"`
-		IMDBID      string `json:"#IMDB_ID"`
-		RANK        int    `json:"#RANK"`
-		ACTORS      string `json:"#ACTORS"`
-		AKA         string `json:"#AKA"`
-		IMDBURL     string `json:"#IMDB_URL"`
-		IMDBIV      string `json:"#IMDB_IV"`
-		IMGPOSTER   string `json:"#IMG_POSTER"`
-		PhotoWidth  int    `json:"photo_width"`
-		PhotoHeight int    `json:"photo_height"`
+		Title   string  `json:"title"`
+		Year    int     `json:"year"`
+		IMDBID  string  `json:"imdb_id"`
+		Rank    int     `json:"rank"`
+		Actors  string  `json:"actors"`
+		IMDBURL string  `json:"imdb_url"`
+		Rating  float32 `json:"rating"`
 	} `json:"description"`
-	ErrorCode int `json:"error_code"`
 }
 
-type MovieDetailResponse struct {
-	Ok          bool   `json:"ok"`
-	ErrorCode   int    `json:"error_code"`
-	Description string `json:"description"`
-	ImdbId      string `json:"imdbId"`
-	Top         struct {
-		Id        string `json:"id"`
-		TitleText struct {
-			Text     string `json:"text"`
-			Typename string `json:"__typename"`
-		} `json:"titleText"`
-		ReleaseYear struct {
-			Year     int    `json:"year"`
-			EndYear  int    `json:"endYear"`
-			Typename string `json:"__typename"`
-		} `json:"releaseYear"`
-		PrimaryImage struct {
-			Id     string `json:"id"`
-			Width  int    `json:"width"`
-			Height int    `json:"height"`
-			Url    string `json:"url"`
-		} `json:"primaryImage"`
-	} `json:"top"`
+type MovieSearchDetail struct {
+	Ok          bool `json:"ok"`
+	Description struct {
+		Title   string  `json:"title"`
+		Year    int     `json:"year"`
+		IMDBID  string  `json:"imdb_id"`
+		Rank    int     `json:"rank"`
+		Actors  string  `json:"actors"`
+		IMDBURL string  `json:"imdb_url"`
+		Rating  float32 `json:"rating"`
+	} `json:"description"`
 }
 
-func (r *RealMovieAPIConnector) SearchMovie(ctx context.Context, keyword string) ([]model.Movie, error) {
-	fullUrl := r.baseURL + "/search"
+func (r *RealMovieAPIConnector) ListMovie(ctx context.Context) ([]model.Movie, error) {
+	fullUrl := r.baseURL + "/list"
 	method := "GET"
 	req, err := http.NewRequestWithContext(ctx, method, fullUrl, nil)
 	if err != nil {
 		return nil, err
 	}
-	q := req.URL.Query()
-	q.Add("q", url.QueryEscape(keyword))
-	req.URL.RawQuery = q.Encode()
 	res, err := r.client.Do(req)
 	if err != nil {
 		return nil, err
@@ -89,24 +68,21 @@ func (r *RealMovieAPIConnector) SearchMovie(ctx context.Context, keyword string)
 	for _, movie := range movieSearchResponse.Description {
 		movies = append(movies, model.Movie{
 			MovieID: movie.IMDBID,
-			Title:   movie.TITLE,
-			Year:    movie.YEAR,
-			Image:   movie.IMGPOSTER,
+			Title:   movie.Title,
+			Year:    movie.Year,
+			Rating:  movie.Rating,
 		})
 	}
 	return movies, nil
 }
 
 func (r *RealMovieAPIConnector) GetMovieDetail(ctx context.Context, movieId string) (*model.Movie, error) {
-	fullUrl := r.baseURL + "/search"
+	fullUrl := fmt.Sprintf("%s/%s", r.baseURL, movieId)
 	method := "GET"
 	req, err := http.NewRequestWithContext(ctx, method, fullUrl, nil)
 	if err != nil {
 		return nil, err
 	}
-	q := req.URL.Query()
-	q.Add("tt", url.QueryEscape(movieId))
-	req.URL.RawQuery = q.Encode()
 	res, err := r.client.Do(req)
 	if err != nil {
 		return nil, err
@@ -123,16 +99,16 @@ func (r *RealMovieAPIConnector) GetMovieDetail(ctx context.Context, movieId stri
 	if err != nil {
 		return nil, err
 	}
-	var movieDetailResponse MovieDetailResponse
+	var movieDetailResponse MovieSearchDetail
 	err = json.Unmarshal(body, &movieDetailResponse)
 	if err != nil {
 		return nil, err
 	}
 	movie := &model.Movie{
-		MovieID: movieDetailResponse.ImdbId,
-		Title:   movieDetailResponse.Top.TitleText.Text,
-		Year:    movieDetailResponse.Top.ReleaseYear.Year,
-		Image:   movieDetailResponse.Top.PrimaryImage.Url,
+		MovieID: movieDetailResponse.Description.IMDBID,
+		Title:   movieDetailResponse.Description.Title,
+		Year:    movieDetailResponse.Description.Year,
+		Rating:  movieDetailResponse.Description.Rating,
 	}
 	if movie.Title == "" || movie.Year == 0 {
 		return nil, fmt.Errorf("movie not found")
@@ -143,6 +119,6 @@ func (r *RealMovieAPIConnector) GetMovieDetail(ctx context.Context, movieId stri
 func NewRealMovieAPI() MovieAPIConnector {
 	return &RealMovieAPIConnector{
 		client:  &http.Client{},
-		baseURL: "https://imdb.iamidiotareyoutoo.com",
+		baseURL: "https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/movie-api",
 	}
 }
