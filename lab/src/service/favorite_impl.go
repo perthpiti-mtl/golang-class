@@ -39,6 +39,14 @@ func (r *RealFavoriteService) AddFavorite(c context.Context, movieId string) err
 	return nil
 }
 
+func (r *RealFavoriteService) DeleteFavorite(c context.Context, movieId string) error {
+	err := r.favoriteRepository.DeleteFavorite(c, movieId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func NewRealFavoriteService(favoriteRepository repository.FavoriteRepository, movieAPIConnector connector.MovieAPIConnector) FavoriteService {
 	return &RealFavoriteService{
 		favoriteRepository: favoriteRepository,

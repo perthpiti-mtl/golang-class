@@ -53,6 +53,17 @@ func (r *RealFavoriteRepository) AddFavorite(c context.Context, movie model.Favo
 	return nil
 }
 
+func (r *RealFavoriteRepository) DeleteFavorite(c context.Context, movieID string) error {
+	result, err := r.db.Exec(c, "DELETE FROM favorite_movies WHERE movie_id = $1", movieID)
+	if err != nil {
+		return err
+	}
+	if result.RowsAffected() == 0 {
+		return fmt.Errorf("movie not found in favorite list")
+	}
+	return nil
+}
+
 func NewRealFavoriteRepository(db *pgxpool.Pool) FavoriteRepository {
 	return &RealFavoriteRepository{
 		db: db,

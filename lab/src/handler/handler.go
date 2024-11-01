@@ -71,6 +71,24 @@ func (h *Handler) AddFavorite(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "success"})
 }
 
+func (h *Handler) DeleteFavorite(c *gin.Context) {
+	id := c.Param("id")
+	err := h.FavoriteService.DeleteFavorite(c, id)
+	if err != nil {
+		if err.Error() == "movie not found" {
+			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+			return
+		}
+		if err.Error() == "movie not found in favorite list" {
+			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "success"})
+}
+
 func NewHandler(movieService service.MovieService, favoriteService service.FavoriteService) *Handler {
 	return &Handler{
 		MovieService:    movieService,
