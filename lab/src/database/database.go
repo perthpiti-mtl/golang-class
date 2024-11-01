@@ -3,24 +3,26 @@ package database
 import (
 	"context"
 	"fmt"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"time"
+
+	"github.com/golang-class/lab/config"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func NewDatabasePool() *pgxpool.Pool {
+func NewDatabasePool(c *config.Config) *pgxpool.Pool {
 	// Initialize the configuration using a structured approach
 	configData, err := pgxpool.ParseConfig(fmt.Sprintf(
 		"host=%s port=%d dbname=%s user=%s password=%s",
-		"localhost", 5432, "database", "admin_user", "admin_password",
+		c.Database.Host, c.Database.Port, c.Database.DatabaseName, c.Database.Username, c.Database.Password,
 	))
 	if err != nil {
 		panic(fmt.Errorf("unable to parse config: %v", err))
 	}
 
 	// Customize pool settings
-	configData.MaxConns = 10 // Maximum number of connections
-	configData.MinConns = 2  // Minimum number of connections
-	configData.MaxConnIdleTime = time.Duration(5) * time.Minute
+	configData.MaxConns = c.Database.MaxConnection // Maximum number of connections
+	configData.MinConns = c.Database.MinConnection // Minimum number of connections
+	configData.MaxConnIdleTime = time.Duration(c.Database.MinConnectionIdleMinute) * time.Minute
 
 	// Create the connection pool
 	pool, err := pgxpool.NewWithConfig(context.Background(), configData)

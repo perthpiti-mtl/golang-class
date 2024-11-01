@@ -12,10 +12,12 @@ import (
 	"github.com/golang-class/lab/repository"
 	"github.com/golang-class/lab/service"
 	"github.com/google/wire"
+	"github.com/golang-class/lab/config"
 )
 
 func InitializeApp() *app.App {
 	wire.Build(
+		config.NewConfig,
 		database.NewDatabasePool,
 		repository.NewRealFavoriteRepository,
 		connector.NewRealMovieAPI,

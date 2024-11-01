@@ -4,9 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/golang-class/lab/model"
 	"io"
 	"net/http"
+
+	"github.com/golang-class/lab/config"
+	"github.com/golang-class/lab/model"
 )
 
 type RealMovieAPIConnector struct {
@@ -116,9 +118,9 @@ func (r *RealMovieAPIConnector) GetMovieDetail(ctx context.Context, movieId stri
 	return movie, nil
 }
 
-func NewRealMovieAPI() MovieAPIConnector {
+func NewRealMovieAPI(c *config.Config) MovieAPIConnector {
 	return &RealMovieAPIConnector{
 		client:  &http.Client{},
-		baseURL: "https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/movie-api",
+		baseURL: c.MovieAPIConnector.URL,
 	}
 }
