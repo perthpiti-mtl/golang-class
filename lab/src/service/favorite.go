@@ -7,4 +7,5 @@ import (
 
 type FavoriteService interface {
 	GetFavorite(ctx context.Context) ([]model.FavoriteMovie, error)
+	AddFavorite(ctx context.Context, movieId string) error
 }

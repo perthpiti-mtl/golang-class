@@ -7,4 +7,5 @@ import (
 
 type FavoriteRepository interface {
 	GetFavorite(c context.Context) ([]model.FavoriteMovie, error)
+	AddFavorite(c context.Context, movie model.FavoriteMovie) error
 }

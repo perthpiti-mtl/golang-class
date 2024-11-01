@@ -22,7 +22,7 @@ func InitializeApp() *app.App {
 	movieService := service.NewRealMovieService(movieAPIConnector)
 	pool := database.NewDatabasePool()
 	favoriteRepository := repository.NewRealFavoriteRepository(pool)
-	favoriteService := service.NewRealFavoriteService(favoriteRepository)
+	favoriteService := service.NewRealFavoriteService(favoriteRepository, movieAPIConnector)
 	handlerHandler := handler.NewHandler(movieService, favoriteService)
 	appApp := app.NewApp(handlerHandler)
 	return appApp

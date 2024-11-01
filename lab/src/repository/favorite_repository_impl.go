@@ -2,7 +2,11 @@ package repository
 
 import (
 	"context"
+	"errors"
+	"fmt"
+
 	"github.com/golang-class/lab/model"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -33,6 +37,20 @@ func (r *RealFavoriteRepository) GetFavorite(c context.Context) ([]model.Favorit
 	}
 
 	return favoriteMovies, nil
+}
+
+func (r *RealFavoriteRepository) AddFavorite(c context.Context, movie model.FavoriteMovie) error {
+	_, err := r.db.Exec(c, "INSERT INTO favorite_movies (movie_id, title, year, rating) VALUES ($1, $2, $3, $4)", movie.MovieID, movie.Title, movie.Year, movie.Rating)
+	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
+			if pgErr.Code == "23505" { // Unique violation error code
+				return fmt.Errorf("movie already in favorite list")
+			}
+		}
+		return err
+	}
+	return nil
 }
 
 func NewRealFavoriteRepository(db *pgxpool.Pool) FavoriteRepository {
