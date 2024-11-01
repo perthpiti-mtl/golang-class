@@ -13,7 +13,7 @@ type RealFavoriteRepository struct {
 func (r *RealFavoriteRepository) GetFavorite(c context.Context) ([]model.FavoriteMovie, error) {
 	var favoriteMovies []model.FavoriteMovie
 
-	rows, err := r.db.Query(c, "SELECT movie_id, title, year, image, created_at FROM favorite_movies")
+	rows, err := r.db.Query(c, "SELECT movie_id, title, year, rating, created_at FROM favorite_movies")
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +21,7 @@ func (r *RealFavoriteRepository) GetFavorite(c context.Context) ([]model.Favorit
 
 	for rows.Next() {
 		var movie model.FavoriteMovie
-		err := rows.Scan(&movie.MovieID, &movie.Title, &movie.Year, &movie.Image, &movie.CreatedAt)
+		err := rows.Scan(&movie.MovieID, &movie.Title, &movie.Year, &movie.Rating, &movie.CreatedAt)
 		if err != nil {
 			return nil, err
 		}
