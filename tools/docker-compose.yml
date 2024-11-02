@@ -11,7 +11,29 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+#  app:
+#    image: your_app_image:latest  # Replace with your actual application image
+#    container_name: app_container
+#    restart: always
+#    depends_on:
+#      - db
+#    environment:
+#      DATABASE_HOST: db
+#      DATABASE_USER: admin_user
+#      DATABASE_PASSWORD: admin_password
+#      DATABASE_NAME: database
+#    ports:
+#      - "8080:8080"  # Adjust based on your app's configuration
+#    networks:
+#      - app_network
 
 volumes:
   postgres_data:
     driver: local
+
+#networks:
+#  app_network:
+#    driver: bridge
