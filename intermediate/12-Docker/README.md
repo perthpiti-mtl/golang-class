@@ -81,40 +81,67 @@ CMD ["./gin-api"]
 - Runs Application: Specifies the command to run the binary.
 
 ## Build the Docker Image
+
 #### Build the Image
+
 Run the following command in the project root directory:
+
 ```bash
 docker build -t gin-api:latest .
 ```
+
 - -t gin-api:latest tags the image.
 - The . specifies the current directory as the build context.
 
 #### Verify the Image
+
 List the Docker images to confirm:
+
 ```bash
 docker images
 ```
 
 ## Run the Docker Container
+
 Run the Docker container using the following command:
+
 ```bash
 docker run -d -p 8080:8080 --name gin-api-container gin-api:latest
 ```
+
 - -d runs the container in detached mode.
 - -p 8080:8080 maps the host port 8080 to the container port 8080.
 - --name gin-api-container names the container.
 
 ## Run with ENV Variables
+
 ```bash
 docker run -d -p 8080:8080 --name gin-api-container -e GIN_MODE=release gin-api:latest
 ```
 
 ## Run with .ENV File
+
 ```bash
 docker run -d -p 8080:8080 --name gin-api-container --env-file .env gin-api:latest
 ```
 
 ### Test the Application Inside the Container
+
 ```bash
 curl http://localhost:8080/ping
+```
+
+-------------------
+## Docker networking
+
+To create docker network:
+
+```bash
+docker network create -d bridge my_network 
+```
+
+To join the container to the network:
+
+```bash
+docker network connect my_network container_name
 ```

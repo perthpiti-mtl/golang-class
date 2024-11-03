@@ -1,7 +1,7 @@
 # Lab Overview:
 
 Build an API server that allows users to search for movies, view movie details, and manage a list of favorite movies.
-The server will use the external movie API at https://imdb.iamidiotareyoutoo.com/docs/index.html for fetching movie data
+The server will use the external movie API at https://distribution-uat.dev.muangthai.co.th/mtl-node-red/golang-course/movie-api/list for fetching movie data
 and PostgreSQL for storing user favorites.
 
 ----------------
