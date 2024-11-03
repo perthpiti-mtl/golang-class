@@ -142,3 +142,32 @@ router := gin.Default() // Includes logger and recovery middleware
 
 Benefit: Gin provides essential middleware out of the box, improving code maintainability.
 
+---------------
+
+## Configuring Gin trust proxy
+```go
+package main
+
+import (
+    "github.com/gin-gonic/gin"
+)
+
+func main() {
+    router := gin.Default()
+
+    // Set trusted proxies to specific IP ranges
+    // Replace "192.168.0.0/24" with the actual range or IP address of your proxy
+    err := router.SetTrustedProxies([]string{"192.168.0.0/24"})
+    if err != nil {
+        panic(err)
+    }
+
+    router.GET("/", func(c *gin.Context) {
+        c.JSON(200, gin.H{
+            "message": "Hello, World!",
+        })
+    })
+
+    router.Run(":8080")
+}
+```
